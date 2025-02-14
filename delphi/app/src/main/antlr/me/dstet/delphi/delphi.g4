@@ -52,7 +52,7 @@ programHeading
     ;
 
 identifier
-    : IDENT
+    : IDENT (DOT identifier)*
     ;
 
 block
@@ -71,7 +71,7 @@ classBlock
     : (
         constantDefinitionPart
         | typeDefinitionPart
-        | (variableDeclaration SEMI)
+        | ((variableDeclaration SEMI)+)
         | classProcedureAndFunctionDeclarationPart
     )*
     ;
@@ -168,6 +168,10 @@ OVERRIDE
     : 'OVERRIDE'
     ;
 
+INHERITED
+    : 'INHERITED'
+    ;
+
 visibility
     : PRIVATE
     | PROTECTED
@@ -176,10 +180,7 @@ visibility
     ;
 
 classType
-    : TYPE identifier EQUAL CLASS (
-        visibility
-        classBlock)+
-    END
+    : CLASS visibility? classBlock (visibility classBlock)* END
     ;
 
 functionType
@@ -305,7 +306,7 @@ variableDeclaration
     ;
 
 classProcedureAndFunctionDeclarationPart
-    : classProcedureOrFunctionDeclaration SEMI
+    : classProcedureOrFunctionDeclaration
     ;
 
 procedureAndFunctionDeclarationPart
@@ -341,11 +342,11 @@ procedureOrFunctionDeclaration
     ;
 
 classProcedureDeclaration
-    : identifier (formalParameterList)? SEMI
+    : PROCEDURE identifier (formalParameterList)? SEMI (OVERRIDE SEMI)?
     ;
 
 procedureDeclaration
-    : PROCEDURE identifier (formalParameterList)? SEMI block
+    : (PROCEDURE | DESTRUCTOR | CONSTRUCTOR) identifier (formalParameterList)? SEMI block
     ;
 
 formalParameterList
@@ -372,7 +373,7 @@ constList
     ;
 
 classFunctionDeclaration
-    : identifier (formalParameterList)? COLON resultType SEMI
+    : FUNCTION identifier (formalParameterList)? COLON resultType SEMI (OVERRIDE SEMI)?
     ;
 
 functionDeclaration
@@ -394,10 +395,15 @@ unlabelledStatement
     ;
 
 simpleStatement
-    : assignmentStatement
+    : inheritedStatement
+    | assignmentStatement
     | procedureStatement
     | gotoStatement
     | emptyStatement_
+    ;
+
+inheritedStatement
+    : INHERITED identifier? (LPAREN identifierList RPAREN)?
     ;
 
 assignmentStatement
@@ -525,7 +531,7 @@ structuredStatement
     ;
 
 compoundStatement
-    : BEGIN statements END
+    : (BEGIN statements)? END
     ;
 
 statements
@@ -889,6 +895,10 @@ COMMENT_1
 
 COMMENT_2
     : '{' .*? '}' -> skip
+    ;
+
+COMMENT_3
+    : '//' ~[\r\n]* -> skip
     ;
 
 IDENT
