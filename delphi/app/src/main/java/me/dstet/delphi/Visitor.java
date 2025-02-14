@@ -23,656 +23,656 @@ public class Visitor<T> implements delphiVisitor<T> {
 
     @Override
     public T visitChildren(RuleNode arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitChildren'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitErrorNode(ErrorNode arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitErrorNode'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitTerminal(TerminalNode arg0) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitTerminal'");
+        return visitProgram((ProgramContext) arg0.getChild(0) );
     }
 
     @Override
     public T visitProgram(ProgramContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitProgram'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitProgramHeading(ProgramHeadingContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitProgramHeading'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitIdentifier(IdentifierContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitIdentifier'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitBlock(BlockContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitBlock'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassBlock(ClassBlockContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassBlock'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitUsesUnitsPart(UsesUnitsPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitUsesUnitsPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitLabelDeclarationPart(LabelDeclarationPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitLabelDeclarationPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitLabel(LabelContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitLabel'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitConstantDefinitionPart(ConstantDefinitionPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitConstantDefinitionPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitConstantDefinition(ConstantDefinitionContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitConstantDefinition'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitConstantChr(ConstantChrContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitConstantChr'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitConstant(ConstantContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitConstant'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitUnsignedNumber(UnsignedNumberContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitUnsignedNumber'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitUnsignedInteger(UnsignedIntegerContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitUnsignedInteger'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitUnsignedReal(UnsignedRealContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitUnsignedReal'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSign(SignContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSign'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitBool_(Bool_Context ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitBool_'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitString(StringContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitString'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitTypeDefinitionPart(TypeDefinitionPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitTypeDefinitionPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitTypeDefinition(TypeDefinitionContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitTypeDefinition'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitVisibility(VisibilityContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitVisibility'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassType(ClassTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFunctionType(FunctionTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFunctionType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitProcedureType(ProcedureTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitProcedureType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitType_(Type_Context ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitType_'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSimpleType(SimpleTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSimpleType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitScalarType(ScalarTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitScalarType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSubrangeType(SubrangeTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSubrangeType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitTypeIdentifier(TypeIdentifierContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitTypeIdentifier'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitStructuredType(StructuredTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitStructuredType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitUnpackedStructuredType(UnpackedStructuredTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitUnpackedStructuredType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitStringtype(StringtypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitStringtype'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitArrayType(ArrayTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitArrayType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitTypeList(TypeListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitTypeList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitIndexType(IndexTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitIndexType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitComponentType(ComponentTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitComponentType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitRecordType(RecordTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitRecordType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFieldList(FieldListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFieldList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFixedPart(FixedPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFixedPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitRecordSection(RecordSectionContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitRecordSection'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitVariantPart(VariantPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitVariantPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitTag(TagContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitTag'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitVariant(VariantContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitVariant'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSetType(SetTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSetType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitBaseType(BaseTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitBaseType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFileType(FileTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFileType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitPointerType(PointerTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitPointerType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitVariableDeclarationPart(VariableDeclarationPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitVariableDeclarationPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitVariableDeclaration(VariableDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitVariableDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassProcedureAndFunctionDeclarationPart(ClassProcedureAndFunctionDeclarationPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassProcedureAndFunctionDeclarationPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitProcedureAndFunctionDeclarationPart(ProcedureAndFunctionDeclarationPartContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitProcedureAndFunctionDeclarationPart'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassProcedureOrFunctionDeclaration(ClassProcedureOrFunctionDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassProcedureOrFunctionDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassConstructorDeclaration(ClassConstructorDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassConstructorDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassDestructorDeclaration(ClassDestructorDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassDestructorDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitProcedureOrFunctionDeclaration(ProcedureOrFunctionDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitProcedureOrFunctionDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassProcedureDeclaration(ClassProcedureDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassProcedureDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitProcedureDeclaration(ProcedureDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitProcedureDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFormalParameterList(FormalParameterListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFormalParameterList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFormalParameterSection(FormalParameterSectionContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFormalParameterSection'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitParameterGroup(ParameterGroupContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitParameterGroup'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitIdentifierList(IdentifierListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitIdentifierList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitConstList(ConstListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitConstList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitClassFunctionDeclaration(ClassFunctionDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitClassFunctionDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFunctionDeclaration(FunctionDeclarationContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFunctionDeclaration'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitResultType(ResultTypeContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitResultType'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitStatement(StatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitUnlabelledStatement(UnlabelledStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitUnlabelledStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSimpleStatement(SimpleStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSimpleStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitAssignmentStatement(AssignmentStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitAssignmentStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitVariable(VariableContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitVariable'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitExpression(ExpressionContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitExpression'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitRelationaloperator(RelationaloperatorContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitRelationaloperator'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSimpleExpression(SimpleExpressionContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSimpleExpression'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitAdditiveoperator(AdditiveoperatorContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitAdditiveoperator'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitTerm(TermContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitTerm'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitMultiplicativeoperator(MultiplicativeoperatorContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitMultiplicativeoperator'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSignedFactor(SignedFactorContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSignedFactor'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFactor(FactorContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFactor'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitUnsignedConstant(UnsignedConstantContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitUnsignedConstant'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFunctionDesignator(FunctionDesignatorContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFunctionDesignator'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitParameterList(ParameterListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitParameterList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitSet_(Set_Context ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitSet_'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitElementList(ElementListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitElementList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitElement(ElementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitElement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitProcedureStatement(ProcedureStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitProcedureStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitActualParameter(ActualParameterContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitActualParameter'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitParameterwidth(ParameterwidthContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitParameterwidth'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitGotoStatement(GotoStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitGotoStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitEmptyStatement_(EmptyStatement_Context ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitEmptyStatement_'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitEmpty_(Empty_Context ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitEmpty_'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitStructuredStatement(StructuredStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitStructuredStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitCompoundStatement(CompoundStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitCompoundStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitStatements(StatementsContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitStatements'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitConditionalStatement(ConditionalStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitConditionalStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitIfStatement(IfStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitIfStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitCaseStatement(CaseStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitCaseStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitCaseListElement(CaseListElementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitCaseListElement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitRepetetiveStatement(RepetetiveStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitRepetetiveStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitWhileStatement(WhileStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitWhileStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitRepeatStatement(RepeatStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitRepeatStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitForStatement(ForStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitForStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitForList(ForListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitForList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitInitialValue(InitialValueContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitInitialValue'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitFinalValue(FinalValueContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitFinalValue'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitWithStatement(WithStatementContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitWithStatement'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
 
     @Override
     public T visitRecordVariableList(RecordVariableListContext ctx) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visitRecordVariableList'");
+        System.out.println("Visited... something! :)");
+        return null;
     }
     
 }

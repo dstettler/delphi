@@ -3,6 +3,8 @@ package me.dstet.delphi;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
+import me.dstet.delphi.delphiParser.ProgramContext;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,6 +33,7 @@ public class Delphi {
                 }
             }
         } catch (IOException e) {
+            System.out.println("Working Directory = " + System.getProperty("user.dir"));
             System.err.println("Error reading files: " + e.getMessage());
             return;
         }
@@ -40,5 +43,18 @@ public class Delphi {
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         delphiParser parser = new delphiParser(tokenStream);
+        System.out.println("Parser instantiated!");
+
+        ProgramContext program = parser.program();
+        System.out.println("Tree instantiated!");
+
+        Visitor visitor = new Visitor<Object>();
+        System.out.println("Visitor instantiated!");
+        try {
+            visitor.visitProgram(program);
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
