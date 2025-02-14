@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>
 		4.0.0
 	</modelVersion>
@@ -16,18 +17,10 @@
 		delphi
 	</name>
 	<properties>
-		<project.build.sourceEncoding>
-			UTF-8
-		</project.build.sourceEncoding>
-		<maven.compiler.release>
-			17
-		</maven.compiler.release>
-		<antlr4.visitor>
-			true
-		</antlr4.visitor>
-		<antlr4.listener>
-			true
-		</antlr4.listener>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<antlr4.visitor>true</antlr4.visitor>
+		<antlr4.listener>true</antlr4.listener>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -35,95 +28,82 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>
-				org.antlr
-			</groupId>
-			<artifactId>
-				antlr4-runtime
-			</artifactId>
-			<version>
-				4.13.2
-			</version>
-			<scope>
-				compile
-			</scope>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-runtime</artifactId>
+			<version>4.13.2</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<build>
 		<pluginManagement>
 			<!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
 			<plugins>
-			<plugin>
-				<groupId>
-					org.codehaus.mojo
-				</groupId>
-				<artifactId>
-					exec-maven-plugin
-				</artifactId>
-				<version>
-					1.2.1
-				</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>
-								java
-							</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>
-						me.dstet.delphi.Delphi
-					</mainClass>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>
-					org.codehaus.mojo
-				</groupId>
-				<artifactId>
-					build-helper-maven-plugin
-				</artifactId>
-				<version>
-					1.7
-				</version>
-				<executions>
-					<execution>
-						<id>
-							add-source
-						</id>
-						<phase>
-							generate-sources
-						</phase>
-						<goals>
-							<goal>
-								add-source
-							</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>
-									src/main/generated-sources
-								</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-      <plugin>
-          <!-- Build an executable JAR -->
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.4.2</version>
-          <configuration>
-            <archive>
-              <manifest>
-                <mainClass>me.dstet.delphi.Delphi</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
-        </plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.2.1</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>java</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<mainClass>me.dstet.delphi.Delphi</mainClass>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.antlr</groupId>
+					<artifactId>antlr4-maven-plugin</artifactId>
+					<version>4.13.2</version>
+					<configuration>
+						<visitor>true</visitor>
+						<listener>true</listener>
+						<!-- <sourceDirectory>src/main/java</sourceDirectory> -->
+						<!-- <outputDirectory>target/generated-sources/annotations</outputDirectory> -->
+					</configuration>
+					<executions>
+						<execution>
+							<id>antlr</id>
+							<goals>
+								<goal>antlr4</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>			
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.4.0</version>
+					<executions>
+						<execution>
+							<id>add-source</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>target/generated-sources/antlr4</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<!-- Build an executable JAR -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.4.2</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<mainClass>me.dstet.delphi.Delphi</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
 				<!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
 				<plugin>
 					<artifactId>
@@ -190,22 +170,6 @@
 					<version>
 						3.6.1
 					</version>
-				</plugin>
-				<plugin>
-					<groupId>org.antlr</groupId>
-					<artifactId>antlr4-maven-plugin</artifactId>
-					<version>4.13.2</version>
-          <configuration>
-            <sourceDirectory>src/main/java</sourceDirectory>
-            <outputDirectory>src/main/generated-sources</outputDirectory>
-          </configuration>          
-					<executions>
-						<execution>
-							<goals>
-								<goal>antlr4</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
