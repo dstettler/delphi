@@ -36,6 +36,9 @@ public class Delphi {
         }
 
         CodePointCharStream prgrmStream = CharStreams.fromString(mainProgramString);
-        
+        delphiLexer lexer = new delphiLexer(prgrmStream);
+
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        delphiParser parser = new delphiParser(tokenStream);
     }
 }
