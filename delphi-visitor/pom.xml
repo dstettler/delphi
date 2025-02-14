@@ -61,7 +61,7 @@
 						<visitor>true</visitor>
 						<listener>true</listener>
 						<!-- <sourceDirectory>src/main/java</sourceDirectory> -->
-						<!-- <outputDirectory>target/generated-sources/annotations</outputDirectory> -->
+						<outputDirectory>target/generated-sources/annotations</outputDirectory>
 					</configuration>
 					<executions>
 						<execution>
