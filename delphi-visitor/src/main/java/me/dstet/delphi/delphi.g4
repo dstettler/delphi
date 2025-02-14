@@ -38,6 +38,10 @@ Adapted from pascal.g by  Hakki Dogusan, Piet Schoutteten and Marton Papp
 
 grammar delphi;
 
+@header {
+package me.dstet.delphi;
+}
+
 options {
     caseInsensitive = true;
 }
@@ -65,6 +69,15 @@ block
         | usesUnitsPart
         | IMPLEMENTATION
     )* compoundStatement
+    ;
+
+classBlock
+    : (
+        constantDefinitionPart
+        | typeDefinitionPart
+        | (variableDeclaration SEMI)
+        | classProcedureAndFunctionDeclarationPart
+    )*
     ;
 
 usesUnitsPart
@@ -132,7 +145,7 @@ typeDefinitionPart
     ;
 
 typeDefinition
-    : identifier EQUAL (type_ | functionType | procedureType)
+    : identifier EQUAL (type_ | functionType | procedureType | classType)
     ;
 
 CLASS
@@ -147,14 +160,30 @@ PROTECTED
     : 'PROTECTED'
     ;
 
+PUBLISHED
+    : 'PUBLISHED'
+    ;
+
 PUBLIC
     : 'PUBLIC'
-    ;    
+    ;
+
+OVERRIDE
+    : 'OVERRIDE'
+    ;
+
+visibility
+    : PRIVATE
+    | PROTECTED
+    | PUBLIC
+    | PUBLISHED
+    ;
 
 classType
-    : CLASS (
-        (PRIVATE|PROTECTED|PUBLIC)
-        )+
+    : TYPE identifier EQUAL CLASS (
+        visibility
+        classBlock)+
+    END
     ;
 
 functionType
@@ -169,7 +198,6 @@ type_
     : simpleType
     | structuredType
     | pointerType
-    | classType
     ;
 
 simpleType
@@ -280,6 +308,10 @@ variableDeclaration
     : identifierList COLON type_
     ;
 
+classProcedureAndFunctionDeclarationPart
+    : classProcedureOrFunctionDeclaration SEMI
+    ;
+
 procedureAndFunctionDeclarationPart
     : procedureOrFunctionDeclaration SEMI
     ;
@@ -287,6 +319,24 @@ procedureAndFunctionDeclarationPart
 classProcedureOrFunctionDeclaration
     : classProcedureDeclaration
     | classFunctionDeclaration
+    | classConstructorDeclaration
+    | classDestructorDeclaration
+    ;
+
+CONSTRUCTOR
+    : 'CONSTRUCTOR'
+    ;
+
+DESTRUCTOR
+    : 'DESTRUCTOR'
+    ;
+
+classConstructorDeclaration
+    : CONSTRUCTOR identifier (formalParameterList)? SEMI (OVERRIDE SEMI)?
+    ;
+
+classDestructorDeclaration
+    : DESTRUCTOR identifier SEMI (OVERRIDE SEMI)?
     ;
 
 procedureOrFunctionDeclaration
@@ -295,7 +345,7 @@ procedureOrFunctionDeclaration
     ;
 
 classProcedureDeclaration
-    : identifier (formalParameterList)? SEMI block
+    : identifier (formalParameterList)? SEMI
     ;
 
 procedureDeclaration
@@ -326,7 +376,7 @@ constList
     ;
 
 classFunctionDeclaration
-    : identifier (formalParameterList)? COLON resultType SEMI block
+    : identifier (formalParameterList)? COLON resultType SEMI
     ;
 
 functionDeclaration

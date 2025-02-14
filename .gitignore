@@ -1,2 +1,4 @@
 out/
 .antlr/
+*.jar
+delphi-visitor/target/

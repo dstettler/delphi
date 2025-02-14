@@ -27,7 +27,7 @@ end;
 
 function TEcho.Echo: Integer;
 begin
-  Writeln('Echoed Number: ', FNumber);
+  writeln('Echoed Number: ', FNumber);
   Result := FNumber;  // Return the number that is echoed
 end;
 
