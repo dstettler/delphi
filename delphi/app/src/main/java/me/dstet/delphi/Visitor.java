@@ -41,8 +41,9 @@ public class Visitor<T> implements delphiVisitor<T> {
 
     @Override
     public T visitProgram(ProgramContext ctx) {
-        System.out.println("Visited... something! :)");
-        return null;
+        System.out.println("Visited program!");
+        
+        return visitBlock(ctx.block());
     }
 
     @Override
@@ -59,7 +60,7 @@ public class Visitor<T> implements delphiVisitor<T> {
 
     @Override
     public T visitBlock(BlockContext ctx) {
-        System.out.println("Visited... something! :)");
+        System.out.println("Visited block!");
         return null;
     }
 

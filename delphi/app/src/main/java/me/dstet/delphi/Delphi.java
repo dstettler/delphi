@@ -43,13 +43,10 @@ public class Delphi {
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         delphiParser parser = new delphiParser(tokenStream);
-        System.out.println("Parser instantiated!");
 
         ProgramContext program = parser.program();
-        System.out.println("Tree instantiated!");
 
         Visitor visitor = new Visitor<Object>();
-        System.out.println("Visitor instantiated!");
         try {
             visitor.visitProgram(program);
         }
