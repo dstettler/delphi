@@ -46,7 +46,7 @@ public class Delphi {
 
         ProgramContext program = parser.program();
 
-        Visitor visitor = new Visitor<Object>(false);
+        Visitor visitor = new Visitor<Object>(true);
         try {
             visitor.visitProgram(program);
         }

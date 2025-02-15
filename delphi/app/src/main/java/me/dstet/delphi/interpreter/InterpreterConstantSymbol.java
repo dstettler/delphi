@@ -1,21 +1,22 @@
 package me.dstet.delphi.interpreter;
 
-public class InterpreterTemplateSymbol implements IInterpreterSymbol {
+public class InterpreterConstantSymbol implements IInterpreterSymbol {
     Visibility visibility;
-    String templateName;
+    Object value;
 
     public Visibility getVisibility() {
         return visibility;
     }
 
-    public InterpreterTemplateSymbol(Visibility visibility, String symbolString) {
+    public InterpreterConstantSymbol(Visibility visibility, Object value) {
         this.visibility = visibility;
-        this.templateName = symbolString;
+        this.value = value;
     }
 
     public void printSymbolInfo() {
         System.out.print("\tVisibility: ");
         System.out.print(visibility);
-        System.out.print(String.format("\tType: %s", templateName));
+        System.out.print("\tValue: ");
+        System.out.print(value);
     }
 }
