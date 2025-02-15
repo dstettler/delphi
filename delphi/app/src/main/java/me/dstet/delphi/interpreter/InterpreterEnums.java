@@ -20,3 +20,7 @@ enum Visibility {
     PUBLISHED,
     PROTECTED
 }
+
+enum Primitive {
+
+}
