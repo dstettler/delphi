@@ -342,7 +342,7 @@ procedureOrFunctionDeclaration
     ;
 
 classProcedureDeclaration
-    : PROCEDURE identifier (formalParameterList)? SEMI (OVERRIDE SEMI)?
+    : CLASS? PROCEDURE identifier (formalParameterList)? SEMI (OVERRIDE SEMI)?
     ;
 
 procedureDeclaration
@@ -373,7 +373,7 @@ constList
     ;
 
 classFunctionDeclaration
-    : FUNCTION identifier (formalParameterList)? COLON resultType SEMI (OVERRIDE SEMI)?
+    : CLASS? FUNCTION identifier (formalParameterList)? COLON resultType SEMI (OVERRIDE SEMI)?
     ;
 
 functionDeclaration
@@ -410,13 +410,18 @@ assignmentStatement
     : variable ASSIGN expression
     ;
 
+RESULT
+    : 'RESULT'
+    ;
+
 variable
-    : (AT identifier | identifier) (
+    : ((AT identifier | identifier) (
         LBRACK expression (COMMA expression)* RBRACK
         | LBRACK2 expression (COMMA expression)* RBRACK2
         | DOT identifier
         | POINTER
     )*
+    | RESULT)
     ;
 
 expression

@@ -1,2 +1,2 @@
 ./gradlew clean
-./gradlew run --args='../../EchoNumber.pas ../../test_echo.pas'
+./gradlew run --args='../../test_echo.pas ../../EchoNumber.pas'
