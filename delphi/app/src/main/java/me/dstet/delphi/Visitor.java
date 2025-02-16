@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import me.dstet.delphi.delphiParser.*;
 import me.dstet.delphi.interpreter.IInterpreterSymbol;
+import me.dstet.delphi.interpreter.InterpreterFunction;
 import me.dstet.delphi.interpreter.InterpreterFunctionParameter;
 import me.dstet.delphi.interpreter.InterpreterFunctionSymbol;
 import me.dstet.delphi.interpreter.InterpreterObject;
@@ -35,6 +36,10 @@ public class Visitor<T> implements delphiVisitor<T> {
     public Visitor(boolean isUnit, SymbolTable existingSymbolTable) {
         this.isUnit = isUnit;
         this.table = existingSymbolTable;
+    }
+
+    public SymbolTable getSymbolTable() {
+        return table;
     }
 
     static void criticalError(String msg) {
@@ -69,6 +74,8 @@ public class Visitor<T> implements delphiVisitor<T> {
     public T visitProgram(ProgramContext ctx) {
         System.out.println("Visited program!");
         
+        table.printSymbolTable();
+
         return visitBlock(ctx.block());
     }
 
@@ -111,6 +118,12 @@ public class Visitor<T> implements delphiVisitor<T> {
                 visitProcedureAndFunctionDeclarationPart(procedureAndFunctionDeclarationPartContext);
             }
         }
+
+        if (ctx.compoundStatement() != null) {
+            visitCompoundStatement(ctx.compoundStatement());
+        }
+
+        table.printSymbolTable();
 
         return null;
     }
@@ -243,7 +256,6 @@ public class Visitor<T> implements delphiVisitor<T> {
         for (TypeDefinitionContext t : ctx.typeDefinition()) {
             visitTypeDefinition(t);
         }
-        table.printSymbolTable();
         return null;
     }
 
@@ -510,7 +522,8 @@ public class Visitor<T> implements delphiVisitor<T> {
     public T visitVariableDeclaration(VariableDeclarationContext ctx) {     
         System.out.println("Visited Variable Declaration!");
         for (IdentifierContext id : ctx.identifierList().identifier()) {
-            String propertyName = id.IDENT().getText();
+            // Get name and type of each variable declared.
+            String variableName = id.IDENT().getText();
             Primitive primitiveType = getTypeFromTypeIdentContext(ctx.type_().simpleType().typeIdentifier());
             String typeString = null;
             if (primitiveType == Primitive.NotPrimitive) {
@@ -518,6 +531,7 @@ public class Visitor<T> implements delphiVisitor<T> {
             }
 
             if (readingClass) {
+                // Create symbol and add to object template if this is a class variable.
                 IInterpreterSymbol symbol;
                 if (primitiveType != Primitive.NotPrimitive) {
                     symbol = new InterpreterPrimitiveSymbol(currentClassVisibility, primitiveType);
@@ -526,18 +540,23 @@ public class Visitor<T> implements delphiVisitor<T> {
                 }
 
                 InterpreterObjectTemplate template = table.getTemplateDeclaredOnTable(currentClassname);
-                template.addInterpreterSymbol(propertyName, symbol);
+                if (!template.addInterpreterSymbol(variableName, symbol)) {
+                    criticalError("ERROR: Attempted to add duplicate symbol to object template");
+                }
             } else {
                 if (primitiveType != Primitive.NotPrimitive) {
+                    //  If the variable is a primitive add that to the symbol table directly with a default value.
                     Object defaultPrimitive = PrimitiveUtils.getDefaultFromPrimitive(primitiveType);
-                    if (!table.addVariableToVars(propertyName, defaultPrimitive)) {
+                    if (!table.addVariableToVars(variableName, defaultPrimitive)) {
                         criticalError(String.format("ERROR: Error declaring variable of type: %s", typeString));
                     }
                 } else {
+                    //  If the variable is an instance of a class add it to the symbol table with a null value. Do not instantiate until constructor is called.
                     InterpreterObjectTemplate template = table.getTemplateDeclaredOnTable(typeString);
                     if (template != null) {
-                        if (!table.addVariableToVars(propertyName, null)) {
-                            criticalError(String.format("ERROR: Attempted to declare var of invalid type: %s", typeString));
+                        // Add a template symbol to the symbol table until the variable is actually instantiated via its constructor.
+                        if (!table.addVariableToVars(variableName, new InterpreterTemplateSymbol(Visibility.PUBLIC, typeString))) {
+                            criticalError(String.format("ERROR: Attempted to declare duplicate variable: %s", variableName));
                         }
                     } else {
                         criticalError(String.format("ERROR: Attempted to declare var of invalid type: %s", typeString));
@@ -602,7 +621,9 @@ public class Visitor<T> implements delphiVisitor<T> {
         }
 
         InterpreterFunctionSymbol symbol = new InterpreterFunctionSymbol(currentClassVisibility, params, Primitive.Void);
-        template.addInterpreterSymbol(functionName, symbol);
+        if (!template.addInterpreterSymbol(functionName, symbol)) {
+            criticalError("ERROR: Attempted to add duplicate symbol to object template");
+        }
 
         return null;
     }
@@ -617,7 +638,9 @@ public class Visitor<T> implements delphiVisitor<T> {
 
         // Destructor will never have parameters so leave that argument null.
         InterpreterFunctionSymbol symbol = new InterpreterFunctionSymbol(currentClassVisibility, null, Primitive.Void);
-        template.addInterpreterSymbol(functionName, symbol);
+        if (!template.addInterpreterSymbol(functionName, symbol)) {
+            criticalError("ERROR: Attempted to add duplicate symbol to object template");
+        }
         return null;
     }
 
@@ -656,7 +679,9 @@ public class Visitor<T> implements delphiVisitor<T> {
         }
 
         InterpreterFunctionSymbol symbol = new InterpreterFunctionSymbol(currentClassVisibility, params, Primitive.Void);
-        template.addInterpreterSymbol(functionName, symbol);
+        if (!template.addInterpreterSymbol(functionName, symbol)) {
+            criticalError("ERROR: Attempted to add duplicate symbol to object template");
+        }
 
         return null;
     }
@@ -664,7 +689,48 @@ public class Visitor<T> implements delphiVisitor<T> {
     @Override
     public T visitProcedureDeclaration(ProcedureDeclarationContext ctx) {
         System.out.println("Visited procedure declaration!");
-        // TODO
+        
+        if (!ctx.identifier().DOT().isEmpty()) {
+            // Treat this as a class method
+            String className = ctx.identifier().IDENT().getText();
+            System.out.println("Classname: " + className);
+            String methodName = ctx.identifier().identifier().get(0).IDENT().getText();
+            System.out.println("Procedure is: " + className + "." + methodName);
+
+            InterpreterObjectTemplate template = table.getTemplateDeclaredOnTable(className);
+            if (template == null) {
+                criticalError("ERROR: Attempted to declare class method for undeclared class: " + className);
+            }
+
+            IInterpreterSymbol symbolInterface = template.getInterpreterSymbol(methodName) ;
+            if (symbolInterface == null || !(symbolInterface instanceof InterpreterFunctionSymbol)) {
+                criticalError("ERROR: Method " + methodName + " does not exist in class or is not declared as a function");
+            }
+
+            InterpreterFunctionSymbol symbol = (InterpreterFunctionSymbol) symbolInterface;
+            InterpreterFunction function = new InterpreterFunction();
+
+            for (StatementContext statement : ctx.block().compoundStatement().statements().statement()) {
+                function.addStatementToFunction(statement);
+            }
+
+            symbol.setInterpreterFunction(function);
+        } else {
+            // Treat this as a new function declaration
+            String procedureName = ctx.identifier().IDENT().getText();
+            System.out.println("Procedure is: " + procedureName);
+
+            InterpreterFunction function = new InterpreterFunction();
+
+            for (StatementContext statement : ctx.block().compoundStatement().statements().statement()) {
+                function.addStatementToFunction(statement);
+            }
+
+            if (!table.addFunctionToTable(procedureName, function)) {
+                criticalError("ERROR: Unable to add " + procedureName + " to symbol table");
+            }
+        }
+
         return null;
     }
 
@@ -733,7 +799,9 @@ public class Visitor<T> implements delphiVisitor<T> {
         } else {
             symbol = new InterpreterFunctionSymbol(currentClassVisibility, params, returnType);
         }
-        template.addInterpreterSymbol(functionName, symbol);
+        if (!template.addInterpreterSymbol(functionName, symbol)) {
+            criticalError("ERROR: Attempted to add duplicate symbol to object template");
+        }
 
         return null;
     }
@@ -742,7 +810,46 @@ public class Visitor<T> implements delphiVisitor<T> {
     public T visitFunctionDeclaration(FunctionDeclarationContext ctx) {
         System.out.println("Visited function declaration!");
 
-        // TODO
+        if (!ctx.identifier().DOT().isEmpty()) {
+            // Treat this as a class method
+            String className = ctx.identifier().IDENT().getText();
+            System.out.println("Classname: " + className);
+            String methodName = ctx.identifier().identifier().get(0).IDENT().getText();
+            System.out.println("Function is: " + className + "." + methodName);
+
+            InterpreterObjectTemplate template = table.getTemplateDeclaredOnTable(className);
+            if (template == null) {
+                criticalError("ERROR: Attempted to declare class method for undeclared class: " + className);
+            }
+
+            IInterpreterSymbol symbolInterface = template.getInterpreterSymbol(methodName) ;
+            if (symbolInterface == null || !(symbolInterface instanceof InterpreterFunctionSymbol)) {
+                criticalError("ERROR: Method " + methodName + " does not exist in class or is not declared as a function");
+            }
+
+            InterpreterFunctionSymbol symbol = (InterpreterFunctionSymbol) symbolInterface;
+            InterpreterFunction function = new InterpreterFunction();
+
+            for (StatementContext statement : ctx.block().compoundStatement().statements().statement()) {
+                function.addStatementToFunction(statement);
+            }
+
+            symbol.setInterpreterFunction(function);
+        } else {
+            // Treat this as a new function declaration
+            String functionName = ctx.identifier().IDENT().getText();
+            System.out.println("Function is: " + functionName);
+
+            InterpreterFunction function = new InterpreterFunction();
+
+            for (StatementContext statement : ctx.block().compoundStatement().statements().statement()) {
+                function.addStatementToFunction(statement);
+            }
+
+            if (!table.addFunctionToTable(functionName, function)) {
+                criticalError("ERROR: Unable to add " + functionName + " to symbol table");
+            }
+        }
 
         return null;
     }
@@ -755,25 +862,58 @@ public class Visitor<T> implements delphiVisitor<T> {
 
     @Override
     public T visitStatement(StatementContext ctx) {
-        System.out.println("Visited... something! :)");
+        System.out.println("Visited a statement!");
+
+        // TODO (for fun) I have not yet implemented labels so assume any statement is unlabelled
+        visitUnlabelledStatement(ctx.unlabelledStatement());
+
         return null;
     }
 
     @Override
     public T visitUnlabelledStatement(UnlabelledStatementContext ctx) {
-        System.out.println("Visited... something! :)");
+        System.out.println("Visited an unlabelled statement!");
+        
+        if (ctx.simpleStatement() != null) {
+            visitSimpleStatement(ctx.simpleStatement());
+        }
+
         return null;
     }
 
     @Override
     public T visitSimpleStatement(SimpleStatementContext ctx) {
-        System.out.println("Visited... something! :)");
+        System.out.println("Visited a simple statement!");
+
+        if (ctx.assignmentStatement() != null) {
+            visitAssignmentStatement(ctx.assignmentStatement());
+        } else if (ctx.procedureStatement() != null) {
+            visitProcedureStatement(ctx.procedureStatement());
+        }
+
         return null;
     }
 
     @Override
     public T visitAssignmentStatement(AssignmentStatementContext ctx) {
-        System.out.println("Visited... something! :)");
+        System.out.println("Visited an assignment statement!");
+
+        ArrayList<IdentifierContext> identifierContext = (ArrayList<IdentifierContext>) ctx.variable().identifier();
+        SymbolTable variableTable = table;
+        String modifiedValueName;
+        Object modifiedValue;
+
+        if (identifierContext.size() > 1) {
+            // Loop through idents with new symbol table until reaching correct obj
+            // TODO
+        } else {
+            modifiedValueName = identifierContext.get(0).IDENT().getText();
+        }
+
+        // TODO evaluate expressions
+
+        variableTable.setVariable(modifiedValueName, modifiedValue);
+
         return null;
     }
 
@@ -911,13 +1051,19 @@ public class Visitor<T> implements delphiVisitor<T> {
 
     @Override
     public T visitCompoundStatement(CompoundStatementContext ctx) {
-        System.out.println("Visited... something! :)");
+        System.out.println("Visited compound statement!");
+        visitStatements(ctx.statements());
         return null;
     }
 
     @Override
     public T visitStatements(StatementsContext ctx) {
-        System.out.println("Visited... something! :)");
+        System.out.println("Visited statements!");
+
+        for (StatementContext statement : ctx.statement()) {
+            visitStatement(statement);
+        }
+
         return null;
     }
 

@@ -5,9 +5,11 @@ uses
 
 var
   e: TEcho;
+  i: Integer
 
 begin
-  e := TEcho.Create(5);
+  i := 5
+  e := TEcho.Create(i);
   e.Echo;
   e.Free;
 end.

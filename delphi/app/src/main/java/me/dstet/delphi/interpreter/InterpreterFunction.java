@@ -10,6 +10,10 @@ import me.dstet.delphi.delphiParser.StatementContext;
 public class InterpreterFunction {
     ArrayList<StatementContext> functionStatements;
 
+    public InterpreterFunction() {
+        functionStatements = new ArrayList<>();
+    }
+
     public void addStatementToFunction(StatementContext statement) {
         functionStatements.add(statement);
     }

@@ -2,5 +2,4 @@ out/
 .antlr/
 *.jar
 !*delphi/gradle/wrapper/gradle-wrapper.jar
-delphi-visitor/target/
 testrig/

@@ -34,6 +34,10 @@ public class InterpreterFunctionSymbol implements IInterpreterSymbol {
         function = null;
     }
 
+    public void setInterpreterFunction(InterpreterFunction function) {
+        this.function = function;
+    }
+
     public void printSymbolInfo() {
         System.out.print("\tVisibility: ");
         System.out.print(visibility);

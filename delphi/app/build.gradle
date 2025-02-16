@@ -13,7 +13,8 @@ plugins {
 
 def generatedSources = [
     rootDir: 'build/generated/',
-    javaDir: 'build/generated/sources/annotationProcessor/java/main'
+    javaDir: 'build/generated/sources/annotationProcessor/java/main',
+    testDir: 'build/generated/sources/annotationProcessor/java/test'
 ]
 
 repositories {
@@ -32,6 +33,9 @@ sourceSets {
 dependencies {
     antlr 'org.antlr:antlr4:4.13.2'
     implementation 'org.antlr:antlr4-runtime:4.13.2'
+
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

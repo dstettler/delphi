@@ -13,6 +13,10 @@ public class InterpreterTemplateSymbol implements IInterpreterSymbol {
         this.templateName = symbolString;
     }
 
+    public String getTemplateName() {
+        return templateName;
+    }
+
     public void printSymbolInfo() {
         System.out.print("\tVisibility: ");
         System.out.print(visibility);

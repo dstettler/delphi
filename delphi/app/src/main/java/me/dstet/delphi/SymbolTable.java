@@ -16,7 +16,7 @@ public class SymbolTable {
     public LinkedHashMap<String, InterpreterFunction> topLevelFunctions;
     public LinkedHashMap<String, Object> constants;
     public LinkedHashMap<String, Object> variables;
-    public LinkedHashMap<String, String> functionCallStackMappings;
+    public LinkedHashMap<String, Object> functionCallArgs;
 
     private Visitor parent;
 
@@ -25,7 +25,14 @@ public class SymbolTable {
         variables = new LinkedHashMap<>();
         topLevelFunctions = new LinkedHashMap<>();
         constants = new LinkedHashMap<>();
-        this.parent =  parent;
+        functionCallArgs = null;
+        this.parent = parent;
+    }
+
+    public SymbolTable(Visitor parent, LinkedHashMap<String, Object> variables, LinkedHashMap<String, Object> functionCallArgs) {
+        this.variables = variables;
+        this.parent = parent;
+        this.functionCallArgs = functionCallArgs;
     }
 
     public Visitor getParent() {
@@ -38,7 +45,7 @@ public class SymbolTable {
      * @return True if successful, false if name is duplicate.
      */
     public boolean addObjectTemplate(String objectName) {
-        if (objectTemplates.get(objectName) != null) {
+        if (objectTemplates.containsKey(objectName)) {
             return false;
         }
 
@@ -51,17 +58,15 @@ public class SymbolTable {
         InterpreterConstantSymbol symbol = new InterpreterConstantSymbol(visibility, value);
         
         InterpreterObjectTemplate template = objectTemplates.get(templateName);
-        if (template == null || template.getInterpreterSymbol(constantName) != null) {
+        if (template == null || template.isInterpreterSymbolOnTable(constantName)) {
             return false;
         }
 
-        template.addInterpreterSymbol(constantName, symbol);
-        
-        return true;
+        return template.addInterpreterSymbol(constantName, symbol);
     }
 
     public boolean addConstantToConstants(String constantName, Object constantValue) {
-        if (constants.get(constantName) != null) {
+        if (constants.containsKey(constantName)) {
             return false;
         }
 
@@ -71,12 +76,27 @@ public class SymbolTable {
     }
 
     public boolean addVariableToVars(String variableName, Object varObject) {
-        if (variables.get(variableName) != null) {
+        System.out.println(variables);
+        if (variables.containsKey(variableName)) {
             return false;
         }
 
         variables.put(variableName, varObject);
-        
+        System.out.println(variables);
+
+        return true;
+    }
+
+    public Object getVariable(String variableName) {
+        return variables.get(variableName);
+    }
+
+    public boolean setVariable(String variableName, Object modifiedValue) {
+        if (!variables.containsKey(variableName)) {
+            return false;
+        }
+
+        variables.put(variableName, modifiedValue);
         return true;
     }
 
@@ -84,12 +104,25 @@ public class SymbolTable {
         return objectTemplates.get(type);
     }
 
-    /* public LinkedHashMap<String, InterpreterObjectTemplate> objectTemplates;
-    public LinkedHashMap<String, InterpreterObject> objects;
-    public LinkedHashMap<String, InterpreterFunction> topLevelFunctions;
-    public LinkedHashMap<String, Object> constants;
-    public LinkedHashMap<String, Object> variables;
-    public LinkedHashMap<String, String> functionCallStackMappings; */
+    public boolean setClassVariableValue(String classVar, String variableName, Object newValue) {
+        Object var = variables.get(classVar);
+        if (var instanceof InterpreterObject) {
+            InterpreterObject obj = (InterpreterObject) var;
+            return obj.setObjectValue(variableName, newValue);
+        } else {
+            return false;
+        }
+    }
+
+    public Object getClassVariableValue (String classVar, String variableName) {
+        Object var = variables.get(classVar);
+        if (var instanceof InterpreterObject) {
+            InterpreterObject obj = (InterpreterObject) var;
+            return obj.getObjectValue(variableName);
+        } else {
+            return null;
+        }
+    }
 
     public void printSymbolTable() {
         System.out.println("Object Templates:");
@@ -98,5 +131,26 @@ public class SymbolTable {
             InterpreterObjectTemplate template = entry.getValue();
             template.printObjectSymbols();
         }
+    }
+
+    public boolean addFunctionToTable(String name, InterpreterFunction function) {
+        if (topLevelFunctions.containsKey(name)) {
+            return false;
+        }
+
+        topLevelFunctions.put(name, function);
+        return true;
+    }
+
+    public LinkedHashMap<String, Object> getFunctionArgs() {
+        return this.functionCallArgs;
+    }
+
+    public void setFunctionArgs(LinkedHashMap<String, Object> args) {
+        this.functionCallArgs = args;
+    }
+
+    public void resetFunctionArgs() {
+        this.functionCallArgs = null;
     }
 }

@@ -12,8 +12,17 @@ public class InterpreterObjectTemplate {
         return objectSymbols.get(symbolName);
     }
 
-    public void addInterpreterSymbol(String name, IInterpreterSymbol symbol) {
+    public boolean isInterpreterSymbolOnTable(String symbolName) {
+        return objectSymbols.containsKey(symbolName);
+    }
+
+    public boolean addInterpreterSymbol(String name, IInterpreterSymbol symbol) {
+        if (objectSymbols.containsKey(name)) {
+            return false;
+        }
+        
         objectSymbols.put(name, symbol);
+        return true;
     }
 
     public void printObjectSymbols() {
