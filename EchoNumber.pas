@@ -10,18 +10,27 @@ type
     constructor Create(ANumber: Integer);
     destructor Destroy; override; // Destructor
     function Echo: Integer; // Method to return the number and print it
+  public
+    FNumberPublic: Integer;
   end;
 
 implementation
 
+function NumberDoubler(ToBeDoubled: Integer): Integer;
+begin
+  Result := ToBeDoubled * 2;
+end;
+
 constructor TEcho.Create(ANumber: Integer);
 begin
   FNumber := ANumber;
+  FNumberPublic := NumberDoubler(ANumber);
 end;
 
 destructor TEcho.Destroy;
 begin
   // Any necessary cleanup code can go here.
+  writeln('Destory here!');
   inherited Destroy;
 end;
 

@@ -2,6 +2,8 @@ package me.dstet.delphi.interpreter;
 
 import java.util.ArrayList;
 
+import me.dstet.delphi.SymbolTable;
+
 public class InterpreterFunctionSymbol implements IInterpreterSymbol {
     Visibility visibility;
     ArrayList<InterpreterFunctionParameter> params;
@@ -34,8 +36,24 @@ public class InterpreterFunctionSymbol implements IInterpreterSymbol {
         function = null;
     }
 
+    public Object getReturnType() {
+        if (returnType == Primitive.NotPrimitive) {
+            return complexReturnType;
+        } else {
+            return returnType;
+        }
+    }
+
     public void setInterpreterFunction(InterpreterFunction function) {
         this.function = function;
+    }
+
+    public ArrayList<InterpreterFunctionParameter> getParams() {
+        return params;
+    }
+
+    public void run(SymbolTable table) {
+        function.run(table);
     }
 
     public void printSymbolInfo() {

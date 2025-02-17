@@ -56,9 +56,14 @@ public class Delphi {
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
             delphiParser parser = new delphiParser(tokenStream);  
             
-            ProgramContext unitContext = parser.program();
-            System.out.println("Visiting unit!");
-            unitVisitor.visitProgram(unitContext);
+            try {
+                System.out.println("Reading unit");
+                ProgramContext unitContext = parser.program();
+                unitVisitor.visitProgram(unitContext);
+            } catch (Exception e) {
+                System.err.println("ERROR: Encountered exception parsing unit: " + e);
+                return;
+            }
 
             reusedTable = unitVisitor.getSymbolTable();
         }
@@ -68,11 +73,18 @@ public class Delphi {
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         delphiParser parser = new delphiParser(tokenStream);
-
+        try {
+            System.out.println("Reading program");
+            
+        } catch (Exception e) {
+            System.err.println("ERROR: Encountered exception parsing program: " + e);
+            return;
+        }
         ProgramContext program = parser.program();
-
-        Visitor visitor = new Visitor<Object>(false, reusedTable);
-        System.out.println("Visiting program!");
-        visitor.visitProgram(program);
+    
+            System.out.println("Executing program...\n\n---------------\n\n");
+    
+            Visitor visitor = new Visitor<Object>(false, reusedTable);
+            visitor.visitProgram(program);
     }
 }

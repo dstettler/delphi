@@ -5,11 +5,12 @@ uses
 
 var
   e: TEcho;
-  i: Integer
+  i: Integer;
 
 begin
-  i := 5
+  i := 5;
   e := TEcho.Create(i);
   e.Echo;
-  e.Free;
+  writeln(e.FNumberPublic);
+  e.Destroy;
 end.

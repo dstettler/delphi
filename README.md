@@ -15,7 +15,10 @@ very small subset of Pascal. Anything I didn't think was directly required for t
 - Conditional statements
 - Comparative expressions
 - `With x Do y` statements
+- `x in y` expressions
 - Object inheritance
 - Object interfaces
 - Packed, pointer, string, subrange, and scalar (`( ident, ident, ident )`) variable declarations
+- Sets
+- Forward-declaration of functions (class methods and declaration in-place are ok)
 - Array variables
