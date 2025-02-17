@@ -75,16 +75,19 @@ public class Delphi {
         delphiParser parser = new delphiParser(tokenStream);
         try {
             System.out.println("Reading program");
-            
+            ProgramContext program = parser.program();
+    
+            System.out.println("Executing program...\n\n---------------\n\n");
+    
+            if (reusedTable == null) {
+                reusedTable = new SymbolTable(null);
+            }
+            Visitor visitor = new Visitor<Object>(false, reusedTable);
+            reusedTable.setParent(visitor);
+            visitor.visitProgram(program);            
         } catch (Exception e) {
             System.err.println("ERROR: Encountered exception parsing program: " + e);
             return;
         }
-        ProgramContext program = parser.program();
-    
-            System.out.println("Executing program...\n\n---------------\n\n");
-    
-            Visitor visitor = new Visitor<Object>(false, reusedTable);
-            visitor.visitProgram(program);
     }
 }

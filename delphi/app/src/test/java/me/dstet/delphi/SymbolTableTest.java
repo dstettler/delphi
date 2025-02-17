@@ -62,7 +62,7 @@ public class SymbolTableTest {
 
         table.setClassVariableValue(objectVariableName, objectSymbolName, Integer.valueOf(5));
 
-        SymbolTable newScopedTable = new SymbolTable(visitor, obj.getObjectsTable(), null);
+        SymbolTable newScopedTable = new SymbolTable(visitor, table.topLevelFunctions, table.constants, obj.getObjectsTable(), null);
         Object newCollectedValue = newScopedTable.getVariable(objectSymbolName);
 
         assertEquals(((Integer) preCollectedValue).intValue(), ((Integer) PrimitiveUtils.getDefaultFromPrimitive(Primitive.Integer)).intValue());
