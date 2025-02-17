@@ -8,7 +8,7 @@ var
   i: Integer;
 
 begin
-  i := 5;
+  readln(i);
   e := TEcho.Create(i);
   e.Echo;
   writeln(e.FNumberPublic);

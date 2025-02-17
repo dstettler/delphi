@@ -1,7 +1,11 @@
 package me.dstet.delphi;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -1526,6 +1530,48 @@ public class Visitor<T> implements delphiVisitor<T> {
         System.out.println("");
     }
 
+    void performReadln(ParameterListContext params) {
+        if (params.actualParameter().size() > 1) {
+            criticalError("ERROR: Attempted to read to multiple vars: " + params.getText());
+        }
+
+        try {
+            Scanner scanner = new Scanner(System.in);
+            String inLine = scanner.nextLine();
+            scanner.close();
+
+            Object newVal;
+
+            Pattern intPattern = Pattern.compile("^\\d*$");
+            Pattern realPattern = Pattern.compile("^\\d+\\.\\d*$");
+            if (intPattern.matcher(inLine).matches()) {
+                newVal = Integer.parseInt(inLine);
+            } else if (realPattern.matcher(inLine).matches()) {
+                newVal = Double.parseDouble(inLine);
+            } else {
+                newVal = inLine;
+            }
+
+            // hardcoding bad bad bad
+            VariableContext paramVariable = params.actualParameter(0).expression().simpleExpression().term().signedFactor().factor().variable();
+            if (!paramVariable.identifier(0).identifier().isEmpty()) {
+                // TODO get from table
+            } else {
+                String varToChange = paramVariable.identifier(0).IDENT().getText();
+
+                if (table.getVariable(varToChange).getClass() == newVal.getClass()) {
+                    table.setVariable(varToChange, newVal);
+                } else {
+                    criticalError("ERROR: Attempted to set variable to value of invalid type: " + varToChange + ", " + newVal.getClass().getName());
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            criticalError("ERROR: Critical error while reading from terminal");
+        }
+    }
+
     @Override
     public T visitProcedureStatement(ProcedureStatementContext ctx) {
         // System.out.println("Visited procedure statement!");
@@ -1535,6 +1581,9 @@ public class Visitor<T> implements delphiVisitor<T> {
         if (ctx.identifier() != null && ctx.identifier().IDENT().getText().equals("writeln")) {
             // Special case for writeln
             performWriteln(ctx.parameterList());
+        } else if (ctx.identifier() != null && ctx.identifier().IDENT().getText().equals("readln")) {
+            // Special case for readln
+            performReadln(ctx.parameterList());
         } else if (ctx.identifier().DOT().size() > 0) {
             // Object method call
             SymbolTable variableTable = table;
