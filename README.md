@@ -33,7 +33,7 @@ If you have any issues with my binary, I have supplied a copy of the source code
 If you extract everything and run the `build.bat` (Windows) or `build.sh` (*NIX) script,
 it should run a Gradle build and copy the generated packed `delphi.jar` jar file to the root directory.
 
-You can run my packaged `delphi.jar` via command line. Running it without arguments gives a small help message that looks like this:
+You can run my pre-compiled `delphi.jar` via command line. Running it without arguments gives a small help message that looks like this:
 ```
 Usage: java -jar delphi.jar <unit1> <unit2> ... <main_program>
 Unit files need to match their names, so EchoNumber needs to be named EchoNumber.pas
