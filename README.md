@@ -1,6 +1,9 @@
 # Toy Delphi Interpreter
 For the purposes of the assignment, I have implemented classes and objects, constructors and destructors, encapsulation, and a
 very small subset of Pascal. Anything I didn't think was directly required for these things was not implemented.
+
+**This project was written for and with Java SE 17. I have not tested it with any other JDK/JRE version.**
+
 ## Functionalities Implemented
 - Object/unit declaration and implementation
 - Object field permissions/encapsulation
@@ -26,11 +29,11 @@ very small subset of Pascal. Anything I didn't think was directly required for t
 
 
 ## How to Run
-I have supplied a copy of the source code (in a zip file) for you to peruse that is directly generated from the Git repo I've been using to back the project up.
-If you extract and run the `build.bat` (Windows) or `build.sh` (*NIX) script,
+If you have any issues with my binary, I have supplied a copy of the source code (in a zip file) for you to peruse that is directly generated from the Git repo I've been using to back the project up.
+If you extract everything and run the `build.bat` (Windows) or `build.sh` (*NIX) script,
 it should run a Gradle build and copy the generated packed `delphi.jar` jar file to the root directory.
 
-Otherwise, you can run my packaged `delphi.jar` via command line. Running it without arguments gives a small help message that looks like this:
+You can run my packaged `delphi.jar` via command line. Running it without arguments gives a small help message that looks like this:
 ```
 Usage: java -jar delphi.jar <unit1> <unit2> ... <main_program>
 Unit files need to match their names, so EchoNumber needs to be named EchoNumber.pas
@@ -66,3 +69,5 @@ My implementation of readln automatically casts your input to the proper type, i
 If you want it to be a Real/Double, enter `5.` or `5.0`.
 If you want it to be a String, enter `5 ` or add any non-numeric character.
 Assigning from a readln to a different type is not allowed and will kill the program.
+
+Thank you for reading!
