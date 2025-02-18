@@ -30,7 +30,7 @@ end;
 destructor TEcho.Destroy;
 begin
   // Any necessary cleanup code can go here.
-  writeln('Destory here!');
+  writeln('Ran the destructor!');
   inherited Destroy;
 end;
 

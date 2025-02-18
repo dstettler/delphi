@@ -1538,7 +1538,6 @@ public class Visitor<T> implements delphiVisitor<T> {
         try {
             Scanner scanner = new Scanner(System.in);
             String inLine = scanner.nextLine();
-            scanner.close();
 
             Object newVal;
 
@@ -1554,8 +1553,55 @@ public class Visitor<T> implements delphiVisitor<T> {
 
             // hardcoding bad bad bad
             VariableContext paramVariable = params.actualParameter(0).expression().simpleExpression().term().signedFactor().factor().variable();
+
             if (!paramVariable.identifier(0).identifier().isEmpty()) {
-                // TODO get from table
+                String visitorPrevObj = paramVariable.identifier(0).IDENT().getText();
+                String finalObjectName; 
+                String finalFieldName = paramVariable.identifier(0).identifier(paramVariable.identifier(0).identifier().size() - 1).IDENT().getText();
+                SymbolTable visitorTable = table;
+
+                for (int i = 0; i < paramVariable.identifier(0).identifier().size() - 2; i++) {
+                    IdentifierContext identCtx = paramVariable.identifier(0).identifier(i);
+                    Object prevObj = visitorTable.getVariable(visitorPrevObj);
+                    if (prevObj instanceof InterpreterObject) {
+                        InterpreterObject prevIObject = (InterpreterObject) prevObj;
+                        IInterpreterSymbol foundSymbol = prevIObject.getTemplate().getInterpreterSymbol(identCtx.IDENT().getText());
+                        if (foundSymbol.getVisibility() == Visibility.PUBLIC) {
+                            visitorTable = new SymbolTable(this, table.topLevelFunctions, table.constants, prevIObject.getObjectsTable(), null);
+                        } else {
+                            criticalError("ERROR: Attempted to access non-public field: " + paramVariable.getText());
+                        }
+                    } else {
+                        criticalError("ERROR: Attempted to access field of non-object: " + paramVariable.getText());
+                    }
+                }
+
+                if (visitorTable == table) {
+                    finalObjectName = visitorPrevObj;
+                } else {
+                    finalObjectName = paramVariable.identifier(0).identifier(paramVariable.identifier(0).identifier().size() - 2).IDENT().getText();
+                }
+
+                Object finalVar = visitorTable.getVariable(finalObjectName);
+                if (finalVar instanceof InterpreterObject) {
+                    InterpreterObject finalVarObj = (InterpreterObject) finalVar;
+    
+                    visitorTable = new SymbolTable(null, table.topLevelFunctions, table.constants, finalVarObj.getObjectsTable(), null);
+                    Visitor varVisitor = new Visitor<>(false, visitorTable);
+                    visitorTable.setParent(varVisitor);
+    
+                    if (finalVarObj.getTemplate().getInterpreterSymbol(finalFieldName).getVisibility() == Visibility.PUBLIC) {
+                        if (visitorTable.getVariable(finalFieldName).getClass() == newVal.getClass()) {
+                            visitorTable.setVariable(finalFieldName, newVal);
+                        } else {
+                            criticalError("ERROR: Class mismatch with field: " + paramVariable.getText() + ", " + newVal.getClass().getName());
+                        }
+                    } else {
+                        criticalError("ERROR: Attempted to access non-public field: " + paramVariable.getText());
+                    }
+                } else {
+                    criticalError("ERROR: Attempted to access field of non-object: " + paramVariable.getText());
+                }
             } else {
                 String varToChange = paramVariable.identifier(0).IDENT().getText();
 

@@ -59,6 +59,10 @@ jar {
     }
 }
 
+run {
+    standardInput = System.in
+}
+
 generateGrammarSource {
     arguments += ['-visitor', '-listener', '-long-messages', '-package', 'me.dstet.delphi']
     outputDirectory = file(generatedSources.javaDir)    
